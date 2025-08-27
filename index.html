@@ -38,29 +38,9 @@
       font-style: italic;
       color: #4caf50;
     }
-    table {
-      width: 100%;
-      margin-top: 15px;
-      border-collapse: collapse;
-      background: #222;
-    }
-    th, td {
-      border: 1px solid #444;
-      padding: 8px 12px;
-      text-align: left;
-    }
-    th {
-      background: #2b2d2e;
-      color: #fff;
-    }
-    td {
-      color: #eee;
-    }
   </style>
 </head>
 <body>
-  <!-- <h2>Solenoid Valve Scheduler</h2> -->
-
   <div>
     <label>Repeat on:</label>
     <div class="days">
@@ -87,30 +67,7 @@
 
   <div id="status">Waiting for input...</div>
 
-  <h3 style="margin-top: 24px;">Solenoids Table</h3>
-  <table id="solenoid-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Solenoid Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Will be filled by JS -->
-    </tbody>
-  </table>
-
   <script>
-    // Example solenoids - replace with dynamic data if needed
-    const solenoids = ["Valve1", "Valve2", "Valve3"];
-
-    const tableBody = document.querySelector("#solenoid-table tbody");
-    solenoids.forEach((s, idx) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `<td>${idx + 1}</td><td>${s}</td>`;
-      tableBody.appendChild(row);
-    });
-
     document.getElementById("add-btn").onclick = () => {
       const day = document.querySelector('input[name="day"]:checked').value;
       const start = document.getElementById("start-time").value;
@@ -121,8 +78,7 @@
         return;
       }
 
-      document.getElementById("status").textContent =
-        `Scheduled on ${day} from ${start} to ${end}`;
+      document.getElementById("status").textContent = `Scheduled on ${day} from ${start} to ${end}`;
     };
   </script>
 </body>
