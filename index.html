@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Scheduler</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101111;
+      color: #eee;
+      max-width: 440px;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #444;
+    }
+    .days label {
+      margin-right: 12px;
+      cursor: pointer;
+    }
+    button {
+      background: #b339e3;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+      width: 100%;
+    }
+    button:hover {
+      background: #b64fe2;
+      color: #fff;
+    }
+    #status {
+      margin-top: 15px;
+      font-style: italic;
+      color: #4caf50;
+    }
+    table {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+      background: #222;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background: #2b2d2e;
+      color: #fff;
+    }
+    td {
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h2>Solenoid Valve Scheduler</h2> -->
+
+  <div>
+    <label>Repeat on:</label>
+    <div class="days">
+      <label><input type="radio" name="day" value="Mo"> Mo</label>
+      <label><input type="radio" name="day" value="Tue" checked> Tue</label>
+      <label><input type="radio" name="day" value="Wed"> Wed</label>
+      <label><input type="radio" name="day" value="Thu"> Thu</label>
+      <label><input type="radio" name="day" value="Fri"> Fri</label>
+      <label><input type="radio" name="day" value="Sat"> Sat</label>
+      <label><input type="radio" name="day" value="Sun"> Sun</label>
+    </div>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label>Start Time:</label>
+    <input type="time" id="start-time" value="09:00" />
+  </div>
+  <div style="margin-top: 12px;">
+    <label>End Time:</label>
+    <input type="time" id="end-time" value="17:00" />
+  </div>
+
+  <button id="add-btn">➕ Add Schedule</button>
+
+  <div id="status">Waiting for input...</div>
+
+  <h3 style="margin-top: 24px;">Solenoids Table</h3>
+  <table id="solenoid-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Solenoid Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Will be filled by JS -->
+    </tbody>
+  </table>
+
+  <script>
+    // Example solenoids - replace with dynamic data if needed
+    const solenoids = ["Valve1", "Valve2", "Valve3"];
+
+    const tableBody = document.querySelector("#solenoid-table tbody");
+    solenoids.forEach((s, idx) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${idx + 1}</td><td>${s}</td>`;
+      tableBody.appendChild(row);
+    });
+
+    document.getElementById("add-btn").onclick = () => {
+      const day = document.querySelector('input[name="day"]:checked').value;
+      const start = document.getElementById("start-time").value;
+      const end = document.getElementById("end-time").value;
+
+      if (!day || !start || !end) {
+        document.getElementById("status").textContent = "Please select day and times.";
+        return;
+      }
+
+      document.getElementById("status").textContent =
+        `Scheduled on ${day} from ${start} to ${end}`;
+    };
+  </script>
+</body>
+</html>
