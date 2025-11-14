@@ -4,40 +4,84 @@
   <meta charset="UTF-8" />
   <title>Scheduler</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #101111;
-      color: #eee;
-      max-width: 440px;
-      margin: 20px auto;
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid #444;
-    }
-    .days label {
-      margin-right: 12px;
-      cursor: pointer;
-    }
-    button {
-      background: #b339e3;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      color: #000;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-      width: 100%;
-    }
-    button:hover {
-      background: #b64fe2;
-      color: #fff;
-    }
-    #status {
-      margin-top: 15px;
-      font-style: italic;
-      color: #d1ebe7;
-    }
+   /* Base layout */
+body {
+  font-family: Arial, sans-serif;
+  background: #323258;
+  color: #eee;
+  max-width: 580px;
+  margin: 20px auto;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid #444;
+}
+
+/* Day radios: inline, evenly spaced */
+.days {
+  display: flex;
+  align-items: center;
+  gap: 10px;           /* space between items */
+  flex-wrap: nowrap;   /* keep on one line */
+  overflow: hidden;    /* prevent accidental wrap scroll */
+}
+
+.days label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;           /* remove default margin so it fits one row */
+  cursor: pointer;
+  padding: 6px 8px;    /* hit area */
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05); /* subtle chip */
+}
+
+/* Keep your original colors by not changing accent */
+input[type="radio"] {
+  accent-color: #7f58e1; /* uses existing theme color; visual only, not a new color */
+}
+
+/* Inputs line-up and look cleaner */
+input[type="time"] {
+  width: 140px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #2c2c4a;   /* same tone family */
+  color: #eee;
+  outline: none;
+}
+input[type="time"]:focus {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+}
+
+/* Button (no color change) */
+button {
+  background: #7f58e1;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  width: 100%;
+}
+button:hover {
+  background: #9773f0;
+  color: #fff;
+}
+
+/* Status text */
+#status {
+  margin-top: 12px;
+  font-style: italic;
+  color: #d1ebe7;
+}
+
+/* Small layout polish */
+fieldset, label { border: 0; }
+
   </style>
 </head>
 <body>
