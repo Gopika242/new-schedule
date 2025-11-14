@@ -81,11 +81,21 @@ button:hover {
 
 /* Small layout polish */
 fieldset, label { border: 0; }
+#scheduler-title {
+  font-family: 'Almarai';
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 20px;
+}
 
   </style>
 </head>
 <body>
   <div>
+    <div id="scheduler-title">جدول صمام الملف اللولبي</div>
     <label>Repeat on:</label>
     <div class="days">
       <label><input type="radio" name="day" value="Mo"> Mo</label>
@@ -97,6 +107,7 @@ fieldset, label { border: 0; }
       <label><input type="radio" name="day" value="Sun"> Sun</label>
     </div>
   </div>
+
 
   <div style="margin-top: 12px;">
     <label>Start Time:</label>
