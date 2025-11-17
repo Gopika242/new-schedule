@@ -16,58 +16,49 @@ body {
   padding: 0;              
   padding-left: 18px;     
   padding-right: 18px;    
-  overflow: hidden;
+
+  overflow: hidden;        
 }
 
-#scheduler-title {
-  font-family: 'Almarai';
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  text-align: center;
-  margin-top: 0%;
-  margin-bottom: 20px;
-}
+  #scheduler-title {
+    font-family: 'Almarai';
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 20px;
+  }
 
-/* ********** CONTENT BOX ********** */
-.content-box {
-  background: #323258;
-  padding: 20px;
-  border-radius: 14px;
-  /* box-shadow: 0 4px 10px rgba(0,0,0,0.25); */
-  margin-bottom: 35px;
-}
+  /* Days */
+  .days {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
 
-/* Days */
-.days {
-  display: flex;
-  gap: 10px;
-  flex-wrap: nowrap;
-}
+  .days label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    white-space: nowrap;
+  }
 
-.days label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 8px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
-  white-space: nowrap;
-}
-
-input[type="radio"] {
-  accent-color: #7f58e1;
-}
-
-/* TIME ROW SIDE-BY-SIDE */
+  input[type="radio"] {
+    accent-color: #7f58e1;
+  }
+/* FIX START + END TIME ALWAYS SIDE BY SIDE */
 .time-row {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
   flex-wrap: nowrap !important;
-  gap: 20px !important;
+  gap: 20px !important;     /* ⬅ bigger spacing between Start & End */
   width: 100% !important;
-  margin-top: 20px;
+  margin-top: 20px;         /* ⬅ space above the row */
 }
 
 .time-box {
@@ -76,52 +67,65 @@ input[type="radio"] {
   width: 50% !important;
   min-width: 0 !important;
   white-space: nowrap !important;
-  padding: 12px;
-  border-radius: 10px;
+
+  padding: 12px;            /* ⬅ internal space inside each box */
+  border-radius: 10px;      /* ⬅ smooth rounded box look */
+  /* background: rgba(255,255,255,0.05); light highlight box */
 }
 
-.time-box label {
-  margin-bottom: 5px;
-  white-space: nowrap !important;
-}
 
-input[type="time"] {
-  width: 100% !important;
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background: #2c2c4a;
-  color: #eee;
-}
+  .time-box label {
+    margin-bottom: 5px;
+    white-space: nowrap !important;
+  }
 
-/* Make the clock icon white */
+  input[type="time"] {
+    width: 100% !important;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #2c2c4a;
+    color: #eee;
+  }
+
+  button {
+    background: #7f58e1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  #status {
+    margin-top: 12px;
+    font-style: italic;
+    color: #d1ebe7;
+  }
+  /* Make the clock icon white */
 input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   opacity: 1;
 }
 
-/* Firefox */
+/* Make the text + caret clearly visible */
+input[type="time"] {
+  color: #fff !important;
+  caret-color: #fff !important;
+}
+
+/* Firefox clock icon (general fix) */
+input[type="time"]::-moz-focus-inner {
+  color: #fff !important;
+}
+
 input[type="time"]::-moz-calendar-picker-indicator {
   filter: invert(1);
 }
 
-button {
-  background: #7f58e1;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 20px;
-  width: 100%;
-}
-
-#status {
-  margin-top: 12px;
-  font-style: italic;
-  color: #d1ebe7;
-}
 </style>
 </head>
 
@@ -129,52 +133,50 @@ button {
 
   <div id="scheduler-title">جدول صمام الملف اللولبي</div>
 
-  <!-- NEW CONTENT BOX -->
-  <div class="content-box">
-
-    <label>Repeat on:</label>
-    <div class="days">
-      <label><input type="radio" name="day" value="Mon"> Mon</label>
-      <label><input type="radio" name="day" value="Tue" checked> Tue</label>
-      <label><input type="radio" name="day" value="Wed"> Wed</label>
-      <label><input type="radio" name="day" value="Thu"> Thu</label>
-      <label><input type="radio" name="day" value="Fri"> Fri</label>
-      <label><input type="radio" name="day" value="Sat"> Sat</label>
-      <label><input type="radio" name="day" value="Sun"> Sun</label>
-    </div>
-
-    <div class="time-row">
-      <div class="time-box">
-        <label>Start Time:</label>
-        <input type="time" id="start-time" value="09:00" />
-      </div>
-
-      <div class="time-box">
-        <label>End Time:</label>
-        <input type="time" id="end-time" value="17:00" />
-      </div>
-    </div>
-
-    <button id="add-btn"> Add Schedule</button>
-    <div id="status">Waiting for input...</div>
-
+  <label>Repeat on:</label>
+  <div class="days">
+    <label><input type="radio" name="day" value="Mon"> Mon</label>
+    <label><input type="radio" name="day" value="Tue" checked> Tue</label>
+    <label><input type="radio" name="day" value="Wed"> Wed</label>
+    <label><input type="radio" name="day" value="Thu"> Thu</label>
+    <label><input type="radio" name="day" value="Fri"> Fri</label>
+    <label><input type="radio" name="day" value="Sat"> Sat</label>
+    <label><input type="radio" name="day" value="Sun"> Sun</label>
   </div>
 
-<script>
-document.getElementById("add-btn").onclick = () => {
-  const day = document.querySelector('input[name="day"]:checked').value;
-  const start = document.getElementById("start-time").value;
-  const end = document.getElementById("end-time").value;
+  <!-- TIME ROW SIDE-BY-SIDE -->
+  <div class="time-row">
+    <div class="time-box">
+      <label>Start Time:</label>
+      <input type="time" id="start-time" value="09:00" />
+    </div>
 
-  if (!day || !start || !end) {
-    document.getElementById("status").textContent = "Please select day and times.";
-    return;
-  }
+    <div class="time-box">
+      <label>End Time:</label>
+      <input type="time" id="end-time" value="17:00" />
+    </div>
+  </div>
 
-  document.getElementById("status").textContent =
-    `Scheduled on ${day} from ${start} to ${end}`;
-};
-</script>
+  <button id="add-btn"> Add Schedule</button>
+
+  <div id="status">Waiting for input...</div>
+
+
+  <script>
+    document.getElementById("add-btn").onclick = () => {
+      const day = document.querySelector('input[name="day"]:checked').value;
+      const start = document.getElementById("start-time").value;
+      const end = document.getElementById("end-time").value;
+
+      if (!day || !start || !end) {
+        document.getElementById("status").textContent = "Please select day and times.";
+        return;
+      }
+
+      document.getElementById("status").textContent =
+        `Scheduled on ${day} from ${start} to ${end}`;
+    };
+  </script>
 
 </body>
 </html>
