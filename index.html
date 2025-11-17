@@ -89,7 +89,7 @@ body {
   }
 
   button {
-    background: #7f58e1;
+    background: white;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -105,6 +105,27 @@ body {
     font-style: italic;
     color: #d1ebe7;
   }
+  /* Make the clock icon white */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 1;
+}
+
+/* Make the text + caret clearly visible */
+input[type="time"] {
+  color: #fff !important;
+  caret-color: #fff !important;
+}
+
+/* Firefox clock icon (general fix) */
+input[type="time"]::-moz-focus-inner {
+  color: #fff !important;
+}
+
+input[type="time"]::-moz-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 </style>
 </head>
 
