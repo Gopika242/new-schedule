@@ -3,130 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
-
   <title>Scheduler</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #323258;
-  color: #eee;
-  max-width: 580px;
-  margin: 0 auto;
-  margin-top: 2%;
-  padding: 0;              
-  padding-left: 18px;     
-  padding-right: 18px;    
+  <style>
+    /* Box sizing everywhere prevents unexpected overflow/overlap */
+    *, *::before, *::after { box-sizing: border-box; }
 
-  overflow: hidden;        
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #323258;
+      color: #eee;
+      max-width: 580px;
+      margin: 0 auto;
+      margin-top: 2%;
+      padding-left: 18px;
+      padding-right: 18px;
+      /* keep overflow visible so content isn't clipped on small screens */
+      overflow: visible;
+    }
 
-  #scheduler-title {
-    font-family: 'Almarai';
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
-    margin-top: 0%;
-    margin-bottom: 20px;
-  }
+    #scheduler-title {
+      font-family: 'Almarai', Arial, sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
 
-  /* Days */
-  .days {
-    display: flex;
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
+    /* Days */
+    .days {
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap;
+      margin-bottom: 12px;
+    }
 
-  .days label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 8px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.05);
-    white-space: nowrap;
-  }
+    .days label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      white-space: nowrap;
+      font-size: 14px;
+    }
 
-  input[type="radio"] {
-    accent-color: #7f58e1;
-  }
-/* FIX START + END TIME ALWAYS SIDE BY SIDE */
-.time-row {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  flex-wrap: nowrap !important;
-  gap: 20px !important;     /* ⬅ bigger spacing between Start & End */
-  width: 100% !important;
-  margin-top: 20px;         /* ⬅ space above the row */
-}
+    input[type="radio"] {
+      accent-color: #7f58e1;
+    }
 
-.time-box {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 50% !important;
-  min-width: 0 !important;
-  white-space: nowrap !important;
+    /* CONTENT WRAPPER - keeps everything aligned to the same width as the button */
+    .content-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-  padding: 12px;            /* ⬅ internal space inside each box */
-  border-radius: 10px;      /* ⬅ smooth rounded box look */
-  /* background: rgba(255,255,255,0.05); light highlight box */
-}
+    /* TIME ROW - two boxes side-by-side that together fill 100% width */
+    .time-row {
+      display: flex;
+      gap: 16px;              /* space BETWEEN the boxes only */
+      width: 100%;
+      margin-top: 6px;
+      align-items: flex-start;
+    }
 
+    /* Each time-box takes equal space, but min-width:0 prevents overflow */
+    .time-box {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .time-box label {
-    margin-bottom: 5px;
-    white-space: nowrap !important;
-  }
+    .time-box label {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #ddd;
+    }
 
-  input[type="time"] {
-    width: 100% !important;
-    padding: 6px 8px;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background: #2c2c4a;
-    color: #eee;
-  }
+    input[type="time"] {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #2c2c4a;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1;
+    }
 
-  button {
-    background: #7f58e1;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 20px;
-    width: 100%;
-  }
+    /* Button occupies exact same horizontal container width */
+    button {
+      background: #7f58e1;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 4px;
+      width: 100%;
+      font-size: 15px;
+    }
 
-  #status {
-    margin-top: 12px;
-    font-style: italic;
-    color: #d1ebe7;
-  }
-  /* Make the clock icon white */
-input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 1;
-}
+    #status {
+      margin-top: 15px;
+      font-style: italic;
+      color: #d1ebe7;
+    }
 
-/* Make the text + caret clearly visible */
-input[type="time"] {
-  color: #fff !important;
-  caret-color: #fff !important;
-}
+    /* Make the clock icon white / visible on webkit */
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 1;
+    }
 
-/* Firefox clock icon (general fix) */
-input[type="time"]::-moz-focus-inner {
-  color: #fff !important;
-}
+    /* Firefox clock icon fixes */
+    input[type="time"]::-moz-focus-inner { color: #fff; }
+    input[type="time"]::-moz-calendar-picker-indicator { filter: invert(1); }
 
-input[type="time"]::-moz-calendar-picker-indicator {
-  filter: invert(1);
-}
-
-</style>
+    /* Responsive: stack on small screens */
+    @media (max-width: 420px) {
+      .days { gap: 6px; overflow-x: auto; padding-bottom: 6px; }
+      .time-row { flex-direction: column; gap: 10px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -134,7 +141,7 @@ input[type="time"]::-moz-calendar-picker-indicator {
   <div id="scheduler-title">جدول صمام الملف اللولبي</div>
 
   <label>Repeat on:</label>
-  <div class="days">
+  <div class="days" aria-hidden="false">
     <label><input type="radio" name="day" value="Mon"> Mon</label>
     <label><input type="radio" name="day" value="Tue" checked> Tue</label>
     <label><input type="radio" name="day" value="Wed"> Wed</label>
@@ -144,27 +151,29 @@ input[type="time"]::-moz-calendar-picker-indicator {
     <label><input type="radio" name="day" value="Sun"> Sun</label>
   </div>
 
-  <!-- TIME ROW SIDE-BY-SIDE -->
-  <div class="time-row">
-    <div class="time-box">
-      <label>Start Time:</label>
-      <input type="time" id="start-time" value="09:00" />
+  <div class="content-wrapper">
+
+    <div class="time-row">
+      <div class="time-box">
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time" value="09:00" />
+      </div>
+
+      <div class="time-box">
+        <label for="end-time">End Time:</label>
+        <input type="time" id="end-time" value="17:00" />
+      </div>
     </div>
 
-    <div class="time-box">
-      <label>End Time:</label>
-      <input type="time" id="end-time" value="17:00" />
-    </div>
+    <button id="add-btn">Add Schedule</button>
   </div>
-
-  <button id="add-btn"> Add Schedule</button>
 
   <div id="status">Waiting for input...</div>
 
-
   <script>
     document.getElementById("add-btn").onclick = () => {
-      const day = document.querySelector('input[name="day"]:checked').value;
+      const checked = document.querySelector('input[name="day"]:checked');
+      const day = checked ? checked.value : '';
       const start = document.getElementById("start-time").value;
       const end = document.getElementById("end-time").value;
 
